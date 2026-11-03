@@ -1,6 +1,6 @@
 # XenoScan1
 
-XenoScan1 is a machine-learning framework for alignment-free detection of horizontal gene transfer (HGT) through host-relative genomic dissonance.
+XenoScan1 is a machine-learning framework for alignment-free detection of horizontal gene transfer (HGT) through host-relative genomic discordance.
 
 ## Download
 
