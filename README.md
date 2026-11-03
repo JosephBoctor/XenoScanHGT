@@ -1,47 +1,45 @@
 # XenoScan1
 
-**A machine-learning framework for alignment-free identification of candidate horizontal gene transfer (HGT) sequences through host-relative genomic discordance.**
+**A machine-learning framework for alignment-free identification of candidate horizontal gene transfer (HGT) sequences using host-relative genomic discordance.**
 
-XenoScan1 projects input DNA sequences into a host-relative feature space and uses a calibrated Random Forest model to estimate HGT probability (`P_HGT`). The standalone Windows edition provides a local browser interface for running inference with a pre-trained model and a precomputed host reference manifold.
+XenoScan1 projects DNA sequences into a host-relative feature space and uses a calibrated Random Forest model to estimate HGT probability (`P_HGT`). The Windows version runs the inference workflow locally using a pre-trained model and a precomputed host reference manifold.
 
 ## Download
 
-Download the standalone Windows package from the **Assets** section of the [XenoScan1 v1.0.0 release](https://github.com/JosephBoctor/XenoScanHGT/releases/tag/v1.0.0).
+Download the Windows package from the **Assets** section of the [XenoScan1 v1.0.0 release](https://github.com/JosephBoctor/XenoScanHGT/releases/tag/v1.0.0).
 
-## Contents
+## Package contents
 
-The standalone package contains:
-
-| File | Purpose |
+| File | Description |
 |---|---|
-| `XenoScan1.py` | Main application. Starts the local browser interface and runs the inference workflow. |
-| `Run_XenoScan1_Offline.bat` | Windows launcher. Checks for the required Python packages, installs them if needed, and starts XenoScan1. |
-| `requirements_XenoScan1.txt` | Python package dependencies used by the launcher. |
+| `XenoScan1.py` | Main Python script. Contains the XenoScan1 inference workflow and starts the local run page used to control and monitor an analysis. |
+| `Run_XenoScan1_Local.bat` | Windows batch file for launching XenoScan1. It checks the required Python packages, installs any that are missing, and runs the Python script. |
+| `requirements_XenoScan1.txt` | Lists the Python packages required by XenoScan1. |
 
-The trained model, reference manifold and input FASTA file are **not included** in the application package. They must be supplied by the user.
+The trained model, host reference manifold and input FASTA file are not included in the package. You must provide these three files when running an analysis.
 
 ## Requirements
 
 - Windows.
-- Python 3 installed with the Windows `py` launcher available from Command Prompt.
+- Python 3, with the Windows `py` launcher available from Command Prompt.
 - The three input files listed below.
-- Internet access for first-time dependency installation if the required Python packages are not already installed.
+- An internet connection for dependency installation when packages are missing.
 
-The launcher installs the packages listed in `requirements_XenoScan1.txt` when they are missing. The core analysis can run locally once Python, the dependencies and required input files are available. Internet access is required if XenoScan1 needs to retrieve a host reference through its NCBI Entrez fallback.
+The batch file checks whether the required packages are installed. If any are missing, it updates pip and installs the packages listed in `requirements_XenoScan1.txt`. Once Python and the dependencies are installed, the analysis runs locally. An internet connection is also needed if XenoScan1 has to retrieve a reference through its NCBI Entrez fallback.
 
-## Required input files
+## Input files
 
-Select the following files in the browser interface:
+You will need:
 
 1. **Random Forest model:** `xenoscan_rf_v1.pkl`
 2. **Host reference manifold:** `XenoScan_Universal_Baseline_MASTER.parquet`
-3. **Target sequences:** a FASTA file with the extension `.fasta`, `.fa` or `.fna`.
+3. **Input sequences:** a FASTA file with the extension `.fasta`, `.fa` or `.fna`.
 
-The model and manifold must be the compatible, pre-trained XenoScan1 assets. The application does not train a new model or generate the reference manifold.
+Use the pre-trained XenoScan1 model and its corresponding reference manifold. The software does not train the model or build the manifold.
 
-### FASTA header requirement
+### FASTA headers
 
-Each sequence header must contain an NCBI Taxonomy ID in a recognisable `taxid:` format. For example:
+Every sequence header must include an NCBI Taxonomy ID in a recognisable `taxid:` format. For example:
 
 ```text
 >Sequence_1 taxid:562
@@ -50,28 +48,30 @@ ATG...
 ATG...
 ```
 
-Sequences without a recognisable TaxID are counted as missing TaxID and are not processed. Sequences shorter than 200 bp or failing the Shannon entropy filter are also excluded. If a TaxID is not represented in the supplied reference manifold, the inference engine can attempt to retrieve a de novo reference through NCBI Entrez; that fallback requires an internet connection.
+Sequences without a recognisable TaxID are excluded. Sequences shorter than 200 bp or with a Shannon entropy below 1.2 are also excluded.
+
+If a TaxID is not present in the supplied reference manifold, XenoScan1 can attempt to retrieve a reference through NCBI Entrez. This requires an internet connection.
 
 ## Installation and launch
 
-### Option 1: Windows launcher (recommended)
+### Windows launcher
 
-1. Download and extract the complete XenoScan1 package into a folder.
-2. Install Python 3 for Windows if it is not already installed. Ensure the Python Launcher (`py`) is included.
-3. Keep `XenoScan1.py`, `Run_XenoScan1_Offline.bat` and `requirements_XenoScan1.txt` together in the same folder.
-4. Double-click `Run_XenoScan1_Offline.bat`.
-5. The launcher checks the required packages and installs missing dependencies. An internet connection is needed if installation is required.
-6. XenoScan1 opens in the default web browser. Keep the launcher window open while the application is running.
+1. Download the ZIP from the v1.0.0 release and extract it.
+2. Install Python 3 for Windows if it is not already installed. Make sure the Python Launcher (`py`) is included.
+3. Keep `XenoScan1.py`, `Run_XenoScan1_Local.bat` and `requirements_XenoScan1.txt` in the same folder.
+4. Double-click `Run_XenoScan1_Local.bat`.
+5. The batch file checks the Python dependencies and installs any that are missing. This step requires an internet connection.
+6. XenoScan1 starts and opens its local run page in your default browser. Leave the Command Prompt window open while the analysis is running.
 
-### Option 2: Run the Python file directly
+### Run the Python script directly
 
-If Python and all required packages are already installed, open Command Prompt in the application folder and run:
+If Python and all required packages are already installed, open Command Prompt in the package folder and run:
 
 ```bash
 py XenoScan1.py
 ```
 
-Direct execution does not install missing dependencies. If a dependency is missing, install the requirements manually:
+Running the script directly does not install missing packages. To install them manually, run:
 
 ```bash
 py -m pip install -r requirements_XenoScan1.txt
@@ -79,32 +79,35 @@ py -m pip install -r requirements_XenoScan1.txt
 
 ## Running an analysis
 
-1. In the browser interface, select the `.pkl` Random Forest model.
-2. Select the `.parquet` host reference manifold.
-3. Select the target FASTA file.
-4. Click **RUN XENOSCAN1**.
-5. Follow the execution status and log in the browser interface.
-6. When inference finishes, the interface presents the PDF preview, the first 15 rows of the results table, and download links for the output files. The application also attempts to trigger the CSV and PDF downloads automatically; browser download settings may affect automatic downloads.
+1. Wait for the XenoScan1 page to open in your browser.
+2. Click **SELECT FILES AND RUN XENOSCAN1**.
+3. Windows file-selection dialogs will open. Select the Random Forest model first, the host reference manifold second, and the FASTA file third.
+4. XenoScan1 will load the model and reference manifold, then process the FASTA sequences.
+5. Follow the status message and execution log on the browser page.
 
-The application runs on the local computer. The browser interface communicates with a local server bound to `127.0.0.1`; it is not a hosted web service.
+The browser page is served by a local Python server bound to `127.0.0.1`. It is only an interface for running and monitoring XenoScan1 on your computer; it is not a remotely hosted service. The three input files are selected through Windows file dialogs, not uploaded through the browser.
+
+When processing finishes, the page shows the output file paths. The execution log also includes the first 15 rows of the results table.
 
 ## Output files
 
-For an input FASTA file named `sample.fasta`, XenoScan1 generates:
+For an input file named `sample.fasta`, XenoScan1 generates two files in the same folder as the FASTA file:
 
 - `XenoScan1_Results_sample.csv` — sequence-level inference results.
 - `XenoScan1_Analysis_sample.pdf` — a two-panel analysis figure.
 
-The CSV contains the sequence identifier, TaxID, HGT probability and associated inference metrics/classification. The export omits the internal `Is_HGT` grouping column. The PDF contains:
+The CSV contains the sequence identifier, TaxID, HGT probability, inference metrics and classification. The internal `Is_HGT` grouping column is not included in the exported CSV.
 
-- **Panel A: 3D Inference Topology**, displaying sequence positions across standardised GC (`Z_GC`), structural anomaly (`kAI_Rel`) and translational shift (`Codon_Rel`), with colour representing HGT probability (`P_HGT`).
-- **Panel B: Probability Boundary Distributions**, showing the probability distributions for the acquired-mobilome and endogenous-core groups.
+The PDF contains:
 
-The output files are made available through the browser interface for download.
+- **Panel A: 3D Inference Topology.** Sequences are plotted using standardised GC (`Z_GC`), structural anomaly (`kAI_Rel`) and translational shift (`Codon_Rel`). Colour indicates HGT probability (`P_HGT`).
+- **Panel B: Probability Boundary Distributions.** Violin plots show the HGT probability distributions for the acquired-mobilome and endogenous-core groups.
+
+The files are saved to disk beside the input FASTA. The browser page displays their paths; it does not provide a PDF preview or download buttons.
 
 ## Classification thresholds
 
-The current inference workflow uses the following probability boundaries:
+XenoScan1 uses the following probability thresholds:
 
 | HGT probability (`P_HGT`) | Classification |
 |---:|---|
@@ -113,26 +116,26 @@ The current inference workflow uses the following probability boundaries:
 | `0.90` to `< 0.95` | Highly Confident HGT |
 | `≥ 0.95` | Ultra-Confident HGT |
 
-The HGT gate used for the acquired-mobilome grouping is `P_HGT ≥ 0.72`. These are the thresholds implemented in this release; they should not be interpreted as independent experimental confirmation of horizontal transfer.
+The acquired-mobilome grouping uses an HGT gate of `P_HGT ≥ 0.72`. These labels reflect the thresholds implemented in the model workflow. They do not, on their own, establish that horizontal transfer has occurred.
 
 ## Troubleshooting
 
-- **The launcher reports that Python was not found:** Install Python 3 for Windows and ensure the Python Launcher (`py`) is installed.
-- **Dependency installation fails:** Check the internet connection and that `pip` is available for the Python installation used by `py`.
-- **The browser interface does not open:** Check the launcher window for an error. You can open the local URL printed by the application manually if necessary.
-- **The application reports an invalid input:** Confirm that the model is a `.pkl` file, the reference manifold is a `.parquet` file and the sequence input is `.fasta`, `.fa` or `.fna`.
-- **Sequences are filtered or missing from the results:** Check that FASTA headers contain TaxIDs and that sequences meet the minimum length and entropy filters. Review the execution log for filtering counts and NCBI baseline retrieval failures.
-- **The NCBI fallback fails:** Check internet connectivity and whether NCBI can return a suitable reference assembly for the supplied TaxID.
-- **The CSV or PDF does not download automatically:** Use the download links displayed in the results section. Browser settings may block automatic multiple-file downloads.
+- **The batch file cannot find Python:** Install Python 3 for Windows and make sure the Python Launcher (`py`) is installed.
+- **Package installation fails:** Check your internet connection and confirm that pip is available for the Python installation used by `py`.
+- **The browser page does not open:** Check the Command Prompt window for an error. Confirm that your default browser is available.
+- **A file cannot be loaded:** Check that you selected the correct model (`.pkl`), reference manifold (`.parquet`) and FASTA file (`.fasta`, `.fa` or `.fna`).
+- **Sequences are missing from the results:** Check the FASTA headers for TaxIDs and check that the sequences meet the length and entropy filters. The execution log reports the filtering counts and failed NCBI reference retrievals.
+- **The NCBI fallback fails:** Check your internet connection and whether NCBI has a suitable reference assembly for that TaxID.
+- **No output files are generated:** Check the execution log. This can happen if no sequences pass the initial filters or if inference stops because of an error.
+- **You cannot find the CSV or PDF:** Both files are saved in the same folder as the input FASTA. Use the paths shown on the browser page.
 
-## Scientific scope and interpretation
+## Interpreting the results
 
-XenoScan1 reports model-derived HGT probabilities and host-relative genomic dissonance metrics. Predictions are computational evidence for candidate acquired sequences, not proof of transfer direction, mechanism, timing or biological function. Results should be interpreted in the context of the organism, genome quality, reference coverage and independent biological evidence.
+XenoScan1 reports model-derived HGT probabilities and host-relative genomic discordance metrics. These results can help identify candidate acquired sequences, but they do not establish the direction, mechanism or timing of transfer, or the biological function of a sequence. Interpret the predictions in the context of the organism, genome quality, reference coverage and other available biological evidence.
 
-## Citation and contact
+## Contact
 
-
-For questions about the implementation, contact **Joseph Boctor**: [joseph.tanyous@gmail.com](mailto:joseph.tanyous@gmail.com).
+For questions about the software, contact Joseph Boctor at [joseph.tanyous@gmail.com](mailto:joseph.tanyous@gmail.com).
 
 ## License
 
