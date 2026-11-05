@@ -1,0 +1,22 @@
+name: Feature request
+description: Suggest an improvement to XenoScan1
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Describe the proposed change
+    validations:
+      required: true
+  - type: textarea
+    id: science
+    attributes:
+      label: Scientific or workflow implications
+      description: Would this change feature definitions, filtering, model behaviour, thresholds, inputs or outputs?
