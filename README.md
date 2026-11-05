@@ -146,3 +146,30 @@ Copyright 2026 Joseph Boctor.
 You may use, reproduce, modify and distribute this software under the terms of the Apache License 2.0. See the `LICENSE` file for the full licence terms.
 
 https://www.apache.org/licenses/LICENSE-2.0
+
+
+## Citing XenoScan1
+
+If XenoScan1 contributes to published work, please cite the software release and the associated XenoScan1 research article.
+
+A machine-readable citation is provided in [CITATION.cff](CITATION.cff). GitHub can use this file to display a **Cite this repository** option.
+
+**Software citation**
+
+Boctor, J. (2026). *XenoScan1: alignment-free discovery of horizontal gene transfer through reference-relative genomic discordance* (Version 1.0.0) [Computer software]. GitHub. https://github.com/JosephBoctor/XenoScanHGT
+
+The peer-reviewed article citation and DOI will be added here once the article is formally published and its bibliographic details are confirmed. Please do not cite an unpublished DOI or treat software release metadata as a substitute for the research article.
+
+## Reproducibility and versioning
+
+For each analysis, record the XenoScan1 release, the Random Forest model file, the reference-manifold file, the Python version and the dependency environment. The model and reference manifold are separate required inputs and are not bundled in the v1.0.0 ZIP. Their provenance and checksums should be retained with the analysis record.
+
+The v1.0.0 release is the reference implementation associated with this software citation. Changes to feature construction, filtering, model behaviour, reference data or classification thresholds should be documented in the release notes and assessed for their effect on comparability.
+
+## Project links
+
+- [Source code](https://github.com/JosephBoctor/XenoScanHGT)
+- [Version 1.0.0 release and Windows package](https://github.com/JosephBoctor/XenoScanHGT/releases/tag/v1.0.0)
+- [Citation metadata](CITATION.cff)
+- [Contribution guidelines](CONTRIBUTING.md)
+- [Security policy](SECURITY.md)
