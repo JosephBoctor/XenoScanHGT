@@ -171,5 +171,6 @@ The v1.0.0 release is the reference implementation associated with this software
 - [Source code](https://github.com/JosephBoctor/XenoScanHGT)
 - [Version 1.0.0 release and Windows package](https://github.com/JosephBoctor/XenoScanHGT/releases/tag/v1.0.0)
 - [Citation metadata](CITATION.cff)
+- [Release SHA-256 checksum](RELEASE_CHECKSUMS.md)
 - [Contribution guidelines](CONTRIBUTING.md)
 - [Security policy](SECURITY.md)
