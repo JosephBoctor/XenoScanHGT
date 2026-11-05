@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use XenoScan1 in your research, please cite this software and the associated publication when available."
+title: "XenoScan1: alignment-free discovery of horizontal gene transfer through reference-relative genomic discordance"
+version: 1.0.0
+date-released: 2026-11-03
+type: software
+authors:
+  - family-names: Boctor
+    given-names: Joseph
+    orcid: "https://orcid.org/0000-0003-4103-1594"
+repository-code: "https://github.com/JosephBoctor/XenoScanHGT"
+url: "https://github.com/JosephBoctor/XenoScanHGT/releases/tag/v1.0.0"
+license: Apache-2.0
+keywords:
+  - horizontal gene transfer
+  - HGT
+  - comparative genomics
+  - bioinformatics
+  - machine learning
+  - alignment-free sequence analysis
+  - genomic composition
+abstract: >-
+  XenoScan1 is a machine-learning framework for identifying candidate
+  horizontal gene transfer sequences through reference-relative genomic
+  discordance. It projects query DNA sequences into a host-relative feature
+  space using a precomputed universal reference manifold and applies a
+  pre-trained Random Forest model to estimate HGT-associated scores.
+  Predictions are computational evidence for candidate sequences and do not,
+  by themselves, establish that horizontal transfer has occurred.
