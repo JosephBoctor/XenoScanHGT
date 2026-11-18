@@ -139,10 +139,8 @@ For questions about the software, contact Joseph Boctor at [joseph.tanyous@gmail
 
 ## License
 
-XenoScan1 is released under the Apache License, Version 2.0.
+XenoScan1 is released under the GNU Affero General Public License v3.0 (AGPL-3.0).
 
 Copyright 2026 Joseph Boctor.
 
-You may use, reproduce, modify and distribute this software under the terms of the Apache License 2.0. See the `LICENSE` file for the full licence terms.
-
-https://www.apache.org/licenses/LICENSE-2.0
+See the `LICENSE` file for the full licence terms, or visit https://www.gnu.org/licenses/agpl-3.0.html.
